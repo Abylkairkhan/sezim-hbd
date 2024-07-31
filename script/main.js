@@ -4,13 +4,18 @@ const animationTimeline = () => {
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
   const hbd = document.getElementsByClassName("wish-hbd")[0];
 
+  function wrapCharacters(text) {
+    return text
+      .split("")
+      .map(char => char === " " ? "<span>&nbsp;</span>" : `<span>${char}</span>`)
+      .join("");
+  }
+
   textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
     .split("")
     .join("</span><span>")}</span`;
-
-  hbd.innerHTML = `<span>${hbd.innerHTML
-    .split("")
-    .join("</span><span>")}</span`;
+    
+hbd.innerHTML = wrapCharacters(hbd.innerHTML);
 
   const ideaTextTrans = {
     opacity: 0,
@@ -205,7 +210,6 @@ const animationTimeline = () => {
       {
         opacity: 0,
         y: -50,
-        // scale: 0.3,
         rotation: 150,
         skewX: "30deg",
         ease: Elastic.easeOut.config(1, 0.5),
